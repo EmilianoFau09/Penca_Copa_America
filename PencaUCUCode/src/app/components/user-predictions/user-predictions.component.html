@@ -1,0 +1,51 @@
+<app-user-header></app-user-header>
+
+<div class="predictions">
+    <div class="selectors">
+        <div class="filter">
+            <button class="btn-highlight" (click)="FilterGroup('A')" (click)="HighlightButton($event)">Grupo A</button>
+            <button (click)="FilterGroup('B')" (click)="HighlightButton($event)">Grupo B</button>
+            <button (click)="FilterGroup('C')" (click)="HighlightButton($event)">Grupo C</button>
+            <button (click)="FilterGroup('D')" (click)="HighlightButton($event)">Grupo D</button>
+            <button (click)="FilterStage('Octavos de Final')" (click)="HighlightButton($event)">Octavos</button>
+            <button (click)="FilterStage('Cuartos de Final')" (click)="HighlightButton($event)">Cuartos</button>
+            <button (click)="FilterStage('Semifinal')" (click)="HighlightButton($event)">Semifinal</button>
+            <button (click)="FilterStage('Final')" (click)="HighlightButton($event)">Final</button>
+        </div>
+    </div>
+
+    <div class="predict">
+        <ul *ngIf="selectedMatches">
+            <li id="match{{match.team1}}{{match.team2}}" *ngFor="let match of selectedMatches">
+                <div class="title">
+                    <p class="date">{{match.dateMatch.slice(0,10)}}</p>
+                    <p *ngIf="match.stage != 'Grupos'" class="group">{{match.stage}}</p>
+                    <p *ngIf="match.stage == 'Grupos'" class="group">Grupo {{match.teamGroup1}}</p>
+                </div>
+                <div class="content">
+                    <div class="team">
+                        <img src="../../../assets/countries/{{match.team1}}.png" alt="">
+                        <h3>{{match.team1}}</h3>
+                    </div>
+                    <div class="score">
+                        <button (click)="ChangeScore(match,1,1)">+</button>
+                        <p>{{match.scoreTeam1}}</p>
+                        <button (click)="ChangeScore(match,1,-1)">-</button>
+                    </div>
+                    <div class="score">
+                        <button (click)="ChangeScore(match,2,1)">+</button>
+                        <p>{{match.scoreTeam2}}</p>
+                        <button (click)="ChangeScore(match,2,-1)">-</button>
+                    </div>
+                    <div class="team">
+                        <img src="../../../assets/countries/{{match.team2}}.png" alt="">
+                        <h3>{{match.team2}}</h3>
+                    </div>
+                </div>
+                <div class="submit">
+                    <button class="btn-submit" (click)="SubmitPrediction(match)">Submit</button>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,242 @@
+<link rel="stylesheet" href="admin-home.component.css">
+<div class="admin-home">
+    <header><h1>Penca UCU</h1></header>
+    <div class="content">
+        <aside>
+            <ul>
+                <li><button (click)="ChooseMode(1)" (click)="HighlightOption($event)">Campeonatos</button></li>
+                <li><button (click)="ChooseMode(2)" (click)="HighlightOption($event)">Equipo</button></li>
+                <li><button (click)="ChooseMode(3)" (click)="HighlightOption($event)">Partidos</button></li>
+                <li><button (click)="ChooseMode(4)" (click)="HighlightOption($event)">Resultado</button></li>
+                <li><button (click)="ChooseMode(5)" (click)="HighlightOption($event)">Mas opciones</button></li>
+            </ul>
+        </aside>
+        <div class="modes">
+            <div id="mode-championship">
+                <div class="options">
+                    <button (click)="ChooseOptionChampionship(1)" (click)="GetChampionships()">Ver</button>
+                    <button (click)="ChooseOptionChampionship(2)" (click)="GetChampionships()">Crear</button>
+                    <button (click)="ChooseOptionChampionship(3)" (click)="GetChampionships()">Modificar</button>
+                    <button (click)="ChooseOptionChampionship(4)" (click)="GetChampionships()">Activar</button>
+                </div>
+                <div class="cont">
+                    <div class="option-view">
+                        <ul>
+                            <li *ngFor="let championship of championships">
+                                <h2>{{championship.championshipName}}</h2>
+                                <p>{{championship.startDate.slice(0, 16)}} / {{championship.endDate.slice(0, 16)}}</p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="option-create">
+                        <button class="btn-submit" (click)="PostChampionshipAdmin()">Crear</button>
+                        <div class="data"><input type="text" [(ngModel)]="championshipName" placeholder="Nombre campeonato"></div>
+                        <div class="data">
+                            <label for="input-start-date">Fecha comienzo</label>
+                            <input id="input-start-date" type="datetime-local" [(ngModel)]="championshipStartDate">
+                        </div>
+                        <div class="data">
+                            <label for="input-end-date">Fecha fin</label>
+                            <input id="input-end-date" type="datetime-local" [(ngModel)]="championshipEndDate">
+                        </div>
+                    </div>
+                    <div class="option-modify"></div>
+                    <div class="option-active">
+                        <button class="btn-submit" (click)="ActiveChampionship()">Activar campeonato</button>
+                        <div class="data">
+                            <label for="input-selection-championship-2">Selecciona un campeonato</label>
+                            <select id="input-selection-championship-2" [(ngModel)]="championship">
+                                <option [ngValue]="championship" *ngFor="let championship of championships">{{championship.championshipName}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="mode-team">
+                <div class="options">
+                    <button (click)="ChooseOptionTeam(1)" (click)="GetAllTeams()">Ver</button>
+                    <button (click)="ChooseOptionTeam(2)" (click)="GetAllTeams()">Crear</button>
+                    <button (click)="ChooseOptionTeam(3)" (click)="GetAllTeams()">Modificar</button>
+                    <button (click)="ChooseOptionTeam(4)" (click)="GetAllTeams()">Añadir equipo</button>
+                </div>
+                <div class="cont">
+                    <div class="option-view">
+                        <div class="data">
+                            <label for="input-selection-championship-2">Selecciona un campeonato</label>
+                            <select id="input-selection-championship-2" [(ngModel)]="teamSelectedChampionship" (change)="GetTeams()">
+                                <option [ngValue]="championship.championshipName" *ngFor="let championship of championships">{{championship.championshipName}}</option>
+                            </select>
+                        </div>
+                        <ul>
+                            <li *ngFor="let team of teams">
+                                <h2>{{team.teamName}}</h2>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="option-create">
+                        <button class="btn-submit" (click)="PostTeam()">Crear</button>
+                        <div class="data">
+                            <label for="input-selection-championship-2">Selecciona un campeonato</label>
+                            <select id="input-selection-championship-2" [(ngModel)]="teamSelectedChampionship">
+                                <option *ngFor="let championship of championships">{{championship.championshipName}}</option>
+                            </select>
+                        </div>
+                        <div class="data">
+                            <label for="input-selection-championship-2">Selecciona un equipo</label>
+                            <select id="input-selection-championship-2" [(ngModel)]="teamName">
+                                <option [ngValue]="country.teamName" *ngFor="let country of countries">{{country.teamName}}</option>
+                            </select>
+                        </div>
+                        <div class="data"><input type="text" [(ngModel)]="teamGroup" placeholder="Nombre grupo"></div>
+                    </div>
+                    <div class="option-modify"></div>
+                    <div class="option-add-team">
+                        <button class="btn-submit" (click)="AddTeam()">Crear</button>
+                        <div class="data"><input type="text" [(ngModel)]="teamName" placeholder="Nombre equipo"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="mode-match">
+                <div class="options">
+                    <button (click)="ChooseOptionMatch(1)">Ver</button>
+                    <button (click)="ChooseOptionMatch(2)">Crear</button>
+                    <button (click)="ChooseOptionMatch(3)">Modificar</button>
+                </div>
+                <div class="cont">
+                    <div class="option-view">
+                        <div class="data">
+                            <label for="input-selection-championship-2">Selecciona un campeonato</label>
+                            <select id="input-selection-championship-2" [(ngModel)]="matchSelectedChampionship" (change)="GetMatches()">
+                                <option [ngValue]="championship.championshipName" *ngFor="let championship of championships">{{championship.championshipName}}</option>
+                            </select>
+                        </div>
+                        <ul>
+                            <li *ngFor="let match of matches">
+                                <h2>{{match.team1}} vs {{match.team2}}</h2>
+                                <div class="data-flex">
+                                    <p>{{match.location}}</p>
+                                    <p>{{match.dateMatch.slice(0,16)}}</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="option-create">
+                        <button class="btn-submit" (click)="PostMatch()">Crear</button>
+                        <div class="data">
+                            <label for="input-selection-championship-3">Selecciona un campeonato</label>
+                            <select id="input-selection-championship-3" [(ngModel)]="matchSelectedChampionship" (change)="GetMatches()">
+                                <option [ngValue]="championship.championshipName" *ngFor="let championship of championships">{{championship.championshipName}}</option>
+                            </select>
+                        </div>
+                        <div class="data">
+                            <label for="input-selection-championship-2">Nombre equipo 1</label>
+                            <select id="input-selection-championship-2" [(ngModel)]="matchTeam1">
+                                <option [ngValue]="country.teamName" *ngFor="let country of countries">{{country.teamName}}</option>
+                            </select>
+                        </div>
+                        <div class="data">
+                            <label for="input-selection-championship-2">Nombre equipo 2</label>
+                            <select id="input-selection-championship-2" [(ngModel)]="matchTeam2">
+                                <option [ngValue]="country.teamName" *ngFor="let country of countries">{{country.teamName}}</option>
+                            </select>
+                        </div>
+                        <div class="data"><input type="text" [(ngModel)]="matchLocation" placeholder="Ubicacion"></div>
+                        <div class="data">
+                            <label for="input-selection-championship-2">Etapa</label>
+                            <select id="input-selection-championship-2" [(ngModel)]="matchStage">
+                                <option value="Final">Final</option>
+                                <option value="Semifinal">Semifinal</option>
+                                <option value="Cuartos de Final">Cuartos de Final</option>
+                                <option value="Octavos de Final">Octavos de Final</option>
+                                <option value="Grupos">Grupos</option>
+                            </select>
+                        </div>
+                        <div class="data">
+                            <label for="input-match-date">Fecha partido</label>
+                            <input id="input-match-date" type="datetime-local" [(ngModel)]="matchDate">
+                        </div>
+                    </div>
+                    <div class="option-modify"></div>
+                </div>
+            </div>
+
+            <div id="mode-result">
+                <div class="options">
+                    <button (click)="ChooseOptionResult(1)" (click)="GetMatches()">Ver</button>
+                    <button (click)="ChooseOptionResult(2)" (click)="GetMatches()">Crear</button>
+                    <button (click)="ChooseOptionResult(3)" (click)="GetMatches()">Modificar</button>
+                </div>
+                <div class="cont">
+                    <div class="option-view">
+                        <div class="data">
+                            <label for="input-selection-championship-2">Selecciona un campeonato</label>
+                            <select id="input-selection-championship-2" [(ngModel)]="resultSelectedChampionship" (change)="GetResults()" (click)="GetMatches()">
+                                <option [ngValue]="championship.championshipName" *ngFor="let championship of championships">{{championship.championshipName}}</option>
+                            </select>
+                        </div>
+                        <ul>
+                            <li class="data-space-arround" *ngFor="let result of resultsBefore">
+                                <h2>{{result.team1}} {{result.scoreTeam1}}</h2>
+                                <p>VS</p>
+                                <h2>{{result.scoreTeam2}} {{result.team2}}</h2>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="option-create">
+                        <button class="btn-submit" (click)="PostResult()">Crear</button>
+                        <div class="data">
+                            <label for="input-selection-championship-4">Selecciona un campeonato</label>
+                            <select id="input-selection-championship-4" [(ngModel)]="resultSelectedChampionship" (change)="GetResults()" (click)="GetMatches()">
+                                <option [ngValue]="championship.championshipName" *ngFor="let championship of championships">{{championship.championshipName}}</option>
+                            </select>
+                        </div>
+                        <div class="data">
+                            <label for="input-selection-match">Selecciona un partido</label>
+                            <select id="input-selection-match" [(ngModel)]="resultSelectedMatch">
+                                <option [ngValue]="result" *ngFor="let result of resultsAfter">{{result.team1}} vs {{result.team2}}</option>
+                            </select>
+                        </div>
+                        <div class="data">
+                            <label for="input-score-team-1">Goles equipo 1</label>
+                            <input id="input-score-team-1" type="number" [(ngModel)]="resultScoreTeam1">
+                        </div>
+                        <div class="data">
+                            <label for="input-score-team-2">Goles equipo 2</label>
+                            <input id="input-score-team-2" type="number" [(ngModel)]="resultScoreTeam2">
+                        </div>
+                    </div>
+                    <div class="option-modify"></div>
+                </div>
+            </div>
+
+            <div id="mode-more-options">
+                <div class="cont">
+                    <div class="option-view">
+                        <button class="btn-submit" (click)="ScoreReset()">Limpiar puntuaciones</button>
+                        <button class="btn-submit" (click)="PostWinners()">Mandar mensajes ganadores</button>
+                    </div>
+                    <div class="option-view inputChampion">
+                      <button (click)="toggleChampion()" class="btn-submit">Ingresar campeón y subcampeón</button>
+                    </div>
+                  @if(this.selectChampion) {
+                    <div class="flex">
+                      <label for="champion">Seleciona el campeón</label>
+                      <select [(ngModel)]="this.champion" id="champion" name="champion">
+                        <option [ngValue]="country.teamName" *ngFor="let country of countries">{{country.teamName}}</option>
+                      </select>
+                      <label for="subchampion">Seleciona el subcampeón</label>
+                      <select [(ngModel)]="this.subchampion" id="subchampion" name="subchampion">
+                        <option [ngValue]="country.teamName" *ngFor="let country of countries">{{country.teamName}}</option>
+                      </select>
+                    </div>
+                    <div>
+                      <button (click)="confirmChampion()" class="btn-submit">Confirmar</button>
+                    </div>
+                  }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

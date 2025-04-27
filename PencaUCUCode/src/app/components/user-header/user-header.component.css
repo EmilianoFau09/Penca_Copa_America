@@ -1,0 +1,416 @@
+.user-header .background {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background-image: url(../../../assets/background/bg-2city.jpg);
+    filter: blur(1.5px);
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.user-header header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--bgColor);
+    padding: 0 20px;
+    position: fixed;
+    z-index: 2;
+    transition: all .5s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.user-header header nav ul {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    list-style: none;
+    gap: 20px;
+    padding: 20px;
+    margin: 0;
+}
+
+.user-header header nav ul li {
+    width: 120px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+.user-header header nav ul li a {
+    text-decoration: none;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.user-header header nav ul li a p {
+    color: var(--textColor);
+    font-size: 20px;
+    margin: 10px 0;
+}
+
+.user-header header nav ul li a .shape {
+    width: 60%;
+    height: 2px;
+    background-color: transparent;
+    transition: all .200s ease-in-out;
+    position: relative;
+    top: 10px;
+}
+
+.user-header header nav ul li a:hover .shape {
+    width: 100%;
+    background-color: var(--textColor);
+    top: 0;
+}
+
+.user-header header .configuration {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.user-header header .configuration p {
+    color: var(--textColor);
+    font-size: 17px;
+}
+
+.user-header header .configuration .avatar {
+    background-color: transparent;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+}
+
+.user-header header .configuration .avatar img {
+    width: 55px;
+    height: 55px;
+}
+
+.user-header .configuration-section {
+    width: 100%;
+    height: 100%;
+    background-color: var(--targetColor);
+    z-index: 4;
+    position: fixed;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-header .configuration-section .content {
+    width: 700px;
+    height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s ease-in-out;
+}
+
+.user-header .configuration-section .content .options {
+    width: 150px;
+    height: 500px;
+    background-color: #e6e9f0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+}
+
+.user-header .configuration-section .content .options ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.user-header .configuration-section .content .options ul li button {
+    background-color: transparent;
+    width: 100%;
+    height: 50px;
+    border: none;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-header .configuration-section .content .options ul li button p {
+    font-size: 18px;
+    z-index: 4;
+}
+
+.user-header .configuration-section .content .options ul li button .shape {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 100%;
+    background-color: var(--color1);
+    transition: width 0.3s cubic-bezier(0.39, 0.575, 0.565, 1);
+}
+
+.user-header .configuration-section .content .options ul li button .shape-red {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 100%;
+    background-color: var(--color2);
+    transition: width 0.3s cubic-bezier(0.39, 0.575, 0.565, 1);
+}
+
+.user-header .configuration-section .content .options ul li button:hover .shape,
+.user-header .configuration-section .content .options ul li button:hover .shape-red {
+    width: 100%;
+}
+
+.user-header .configuration-section .content .options ul li button:hover p {
+    color: white;
+}
+
+.user-header .configuration-section .content .options .toggle-mode {
+    position: relative;
+    width: 80px;
+    height: 40px;
+    --light: #d8dbe0;
+    --dark: #28292c;
+    --link: rgb(27, 129, 112);
+    --link-hover: rgb(24, 94, 82);
+    margin-bottom: 20px;
+}
+
+.user-header .configuration-section .content .options .toggle-mode .switch-label {
+    position: absolute;
+    width: 100%;
+    height: 40px;
+    background-color: var(--dark);
+    border-radius: 25px;
+    cursor: pointer;
+    border: 3px solid var(--dark);
+}
+
+.user-header .configuration-section .content .options .toggle-mode .input-mode {
+    position: absolute;
+    display: none;
+}
+
+.user-header .configuration-section .content .options .toggle-mode .slider {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 25px;
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+}
+
+.user-header .configuration-section .content .options .toggle-mode .input-mode:checked~.slider {
+    background-color: var(--light);
+}
+
+.user-header .configuration-section .content .options .toggle-mode .slider::before {
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    -webkit-box-shadow: inset 12px -4px 0px 0px var(--light);
+    box-shadow: inset 12px -4px 0px 0px var(--light);
+    background-color: var(--dark);
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+}
+
+.user-header .configuration-section .content .options .toggle-mode .input-mode:checked~.slider::before {
+    transform: translateX(38px);
+    background-color: var(--dark);
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.user-header .configuration-section .content .option {
+    width: 550px;
+    height: 500px;
+    background-color: #C9CCD3;
+    background-image: linear-gradient(-180deg, rgba(255, 255, 255, 0.50) 0%, rgba(0, 0, 0, 0.50) 100%);
+    background-blend-mode: lighten;
+    padding: 0;
+    margin: 0;
+}
+
+.user-header .configuration-section .content .option .option-password {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    padding: 40px 30px;
+    gap: 30px;
+}
+
+.user-header .configuration-section .content .option .option-password input {
+    border: 2px solid transparent;
+    width: 300px;
+    height: 40px;
+    padding-left: 0.8em;
+    outline: none;
+    overflow: hidden;
+    background-color: #F3F3F3;
+    border-radius: 10px;
+    transition: all 0.5s;
+}
+
+.user-header .configuration-section .content .option .option-password input:hover,
+.user-header .configuration-section .content .option .option-password input:focus {
+    border: 2px solid #4A9DEC;
+    box-shadow: 0px 0px 0px 7px rgb(74, 157, 236, 20%);
+    background-color: white;
+}
+
+.user-header .configuration-section .content .option .option-password button {
+    padding: 17px 40px;
+    border-radius: 50px;
+    cursor: pointer;
+    border: 0;
+    background-color: white;
+    box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-size: 15px;
+    transition: all 0.5s ease;
+    margin-top: 10px;
+}
+
+.user-header .configuration-section .content .option .option-password button:hover {
+    letter-spacing: 3px;
+    background-color: hsl(261deg 80% 48%);
+    color: hsl(0, 0%, 100%);
+    box-shadow: rgb(93 24 220) 0px 7px 29px 0px;
+}
+
+.user-header .configuration-section .content .option .option-password button:active {
+    letter-spacing: 3px;
+    background-color: hsl(261deg 80% 48%);
+    color: hsl(0, 0%, 100%);
+    box-shadow: rgb(93 24 220) 0px 0px 0px 0px;
+    transform: translateY(10px);
+    transition: 100ms;
+}
+
+.user-header .configuration-section .content .option .option-avatar {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    flex-wrap: wrap;
+    padding: 40px 30px;
+    margin: 0;
+    gap: 20px;
+    list-style: none;
+}
+
+.user-header .configuration-section .content .option .option-avatar li button {
+    background-color: transparent;
+    border-radius: 5px;
+    transition: all .3s ease-in-out;
+    width: 90px;
+    height: 90px;
+    border: none;
+}
+
+.user-header .configuration-section .content .option .option-avatar li button img {
+    width: 90px;
+    height: 90px;
+    transition: all .2s ease;
+}
+
+.user-header .configuration-section .content .option .option-avatar li button:hover img {
+    transform: scale(1.05);
+}
+
+.user-header .configuration-section .content .option .option-theme {
+    display: none;
+}
+
+.user-header .configuration-section .content .option .option-career {
+    display: none;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    padding: 40px 30px;
+    gap: 30px;
+}
+
+.user-header .configuration-section .content .option .option-career label{
+    font-size: 22px;
+}
+
+.user-header .configuration-section .content .option .option-career select{
+    width: 300px;
+    height: 30px;
+    background-color: #e6e9f0;
+    border: none;
+    border-radius: 10px;
+}
+
+.user-header .configuration-section .content .option .option-career button{
+    background-color: rgb(51, 214, 78);
+    border: none;
+    padding: 10px 30px;
+    color: white;
+}
+
+.user-header .configuration-section .content .option .option-mail {
+    display: none;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    padding: 40px 30px;
+    gap: 30px;
+}
+
+.user-header .configuration-section .content .option .option-mail input{
+    border: 2px solid transparent;
+    width: 300px;
+    height: 40px;
+    padding-left: 0.8em;
+    outline: none;
+    overflow: hidden;
+    background-color: #F3F3F3;
+    border-radius: 10px;
+    transition: all 0.5s;
+}
+
+.user-header .configuration-section .content .option .option-mail input:hover,
+.user-header .configuration-section .content .option .option-mail input:focus {
+    border: 2px solid #4A9DEC;
+    box-shadow: 0px 0px 0px 7px rgb(74, 157, 236, 20%);
+    background-color: white;
+}
+
+.user-header .configuration-section .content .option .option-mail button{
+    background-color: rgb(51, 214, 78);
+    border: none;
+    padding: 10px 30px;
+    color: white;
+}

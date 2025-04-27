@@ -1,0 +1,13 @@
+<app-user-header></app-user-header>
+
+<div class="ranking" *ngIf="ranking">
+    <ul>
+        <li *ngFor="let person of ranking">
+            <div class="person">
+                <h2>{{person.username}}</h2>
+                <img src="../../../assets/avatar/avatar-1.png" alt="">
+            </div>
+            <p class="score">{{person.score}}</p>
+        </li>
+    </ul>
+</div>
